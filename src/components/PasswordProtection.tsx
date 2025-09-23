@@ -68,7 +68,7 @@ export default function PasswordProtection({ onPasswordCorrect }: PasswordProtec
               Portfolio Access
             </h1>
             <p className="text-gray-300">
-              Enter the password to view Mario Onoh's portfolio
+              Enter the password to view Mario Onoh&apos;s portfolio
             </p>
           </motion.div>
 

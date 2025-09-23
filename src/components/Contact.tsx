@@ -85,7 +85,7 @@ export default function Contact() {
             Get In <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Touch</span>
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Ready to work together? Let's discuss your next project and bring your ideas to life.
+            Ready to work together? Let&apos;s discuss your next project and bring your ideas to life.
           </p>
         </motion.div>
 
@@ -98,10 +98,10 @@ export default function Contact() {
             className="space-y-8"
           >
             <div>
-              <h3 className="text-2xl font-bold text-white mb-6">Let's Connect</h3>
+              <h3 className="text-2xl font-bold text-white mb-6">Let&apos;s Connect</h3>
               <p className="text-gray-300 leading-relaxed mb-8">
-                I'm always interested in new opportunities and exciting projects. 
-                Whether you have a question or just want to say hi, I'll try my best to get back to you!
+                I&apos;m always interested in new opportunities and exciting projects. 
+                Whether you have a question or just want to say hi, I&apos;ll try my best to get back to you!
               </p>
             </div>
 
