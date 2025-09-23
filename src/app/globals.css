@@ -1,26 +1,142 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, #8b5cf6, #ec4899);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(45deg, #7c3aed, #db2777);
+}
+
+/* Selection styling */
+::selection {
+  background: rgba(139, 92, 246, 0.3);
+  color: white;
+}
+
+/* Smooth animations */
+* {
+  transition: all 0.3s ease;
+}
+
+/* Custom gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #8b5cf6, #ec4899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Glass morphism effect */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Custom animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(139, 92, 246, 0.6);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Vortex spiral animations */
+@keyframes spiral-0 {
+  0% { transform: rotate(0deg) scale(1); opacity: 0.2; }
+  50% { transform: rotate(180deg) scale(0.8); opacity: 0.6; }
+  100% { transform: rotate(360deg) scale(1); opacity: 0.2; }
+}
+
+@keyframes spiral-1 {
+  0% { transform: rotate(45deg) scale(1); opacity: 0.2; }
+  50% { transform: rotate(225deg) scale(0.8); opacity: 0.6; }
+  100% { transform: rotate(405deg) scale(1); opacity: 0.2; }
+}
+
+@keyframes spiral-2 {
+  0% { transform: rotate(90deg) scale(1); opacity: 0.2; }
+  50% { transform: rotate(270deg) scale(0.8); opacity: 0.6; }
+  100% { transform: rotate(450deg) scale(1); opacity: 0.2; }
+}
+
+@keyframes spiral-3 {
+  0% { transform: rotate(135deg) scale(1); opacity: 0.2; }
+  50% { transform: rotate(315deg) scale(0.8); opacity: 0.6; }
+  100% { transform: rotate(495deg) scale(1); opacity: 0.2; }
+}
+
+@keyframes spiral-4 {
+  0% { transform: rotate(180deg) scale(1); opacity: 0.2; }
+  50% { transform: rotate(360deg) scale(0.8); opacity: 0.6; }
+  100% { transform: rotate(540deg) scale(1); opacity: 0.2; }
+}
+
+@keyframes spiral-5 {
+  0% { transform: rotate(225deg) scale(1); opacity: 0.2; }
+  50% { transform: rotate(405deg) scale(0.8); opacity: 0.6; }
+  100% { transform: rotate(585deg) scale(1); opacity: 0.2; }
+}
+
+@keyframes spiral-6 {
+  0% { transform: rotate(270deg) scale(1); opacity: 0.2; }
+  50% { transform: rotate(450deg) scale(0.8); opacity: 0.6; }
+  100% { transform: rotate(630deg) scale(1); opacity: 0.2; }
+}
+
+@keyframes spiral-7 {
+  0% { transform: rotate(315deg) scale(1); opacity: 0.2; }
+  50% { transform: rotate(495deg) scale(0.8); opacity: 0.6; }
+  100% { transform: rotate(675deg) scale(1); opacity: 0.2; }
+}
+
+/* Radial gradient utility */
+.bg-gradient-radial {
+  background: radial-gradient(circle, var(--tw-gradient-stops));
 }
