@@ -46,7 +46,7 @@ export default function About() {
             About <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Me</span>
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            I'm a passionate developer with a love for creating digital experiences that make a difference.
+            I&apos;m a passionate developer with a love for creating digital experiences that make a difference.
           </p>
         </motion.div>
 
@@ -60,12 +60,12 @@ export default function About() {
             <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
               <h3 className="text-2xl font-bold text-white mb-4">My Story</h3>
               <p className="text-gray-300 leading-relaxed mb-4">
-                With over 5 years of experience in web development, I've had the privilege of working with 
+                With over 5 years of experience in web development, I&apos;ve had the privilege of working with 
                 startups and established companies to bring their digital visions to life. I specialize in 
                 creating modern, responsive web applications that not only look great but perform exceptionally.
               </p>
               <p className="text-gray-300 leading-relaxed">
-                When I'm not coding, you'll find me exploring new technologies, contributing to open-source 
+                When I&apos;m not coding, you&apos;ll find me exploring new technologies, contributing to open-source 
                 projects, or sharing knowledge with the developer community.
               </p>
             </div>

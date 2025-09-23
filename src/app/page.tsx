@@ -8,11 +8,9 @@ import PasswordProtection from '@/components/PasswordProtection';
 
 export default function Home() {
   const bioRef = useRef(null);
-  const isBioInView = useInView(bioRef, { once: true, margin: "-100px" });
   const aboutRef = useRef(null);
   const isAboutInView = useInView(aboutRef, { once: true, margin: "-100px" });
   const [isClient, setIsClient] = useState(false);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
@@ -25,14 +23,6 @@ export default function Home() {
     }
   }, []);
 
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
 
   const handlePasswordCorrect = () => {
     setIsAuthenticated(true);
@@ -617,7 +607,7 @@ export default function Home() {
                 rel="noopener noreferrer"
                 className="text-black text-xl font-medium hover:underline transition-all duration-300 hover:text-gray-700"
               >
-                We Still Don't Trust You
+                We Still Don&apos;t Trust You
               </a>
               <div className="text-gray-500 text-base mt-2">
                 Tour Management
