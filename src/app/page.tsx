@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
 import TypingText from '@/components/TypingText';
+import PasswordProtection from '@/components/PasswordProtection';
 
 export default function Home() {
   const bioRef = useRef(null);
@@ -12,9 +13,16 @@ export default function Home() {
   const isAboutInView = useInView(aboutRef, { once: true, margin: "-100px" });
   const [isClient, setIsClient] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
+    
+    // Check if user is already authenticated in this session
+    const hasAccess = sessionStorage.getItem('portfolioAccess') === 'granted';
+    if (hasAccess) {
+      setIsAuthenticated(true);
+    }
   }, []);
 
   useEffect(() => {
@@ -25,6 +33,25 @@ export default function Home() {
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
+
+  const handlePasswordCorrect = () => {
+    setIsAuthenticated(true);
+  };
+
+  // Show loading state while checking authentication
+  if (!isClient) {
+    return (
+      <div className="min-h-screen bg-black flex items-center justify-center">
+        <div className="text-white text-xl">Loading...</div>
+      </div>
+    );
+  }
+
+  // Show password protection if not authenticated
+  if (!isAuthenticated) {
+    return <PasswordProtection onPasswordCorrect={handlePasswordCorrect} />;
+  }
+
 
   return (
     <div>
@@ -85,34 +112,34 @@ export default function Home() {
           <div className="relative z-10 text-center max-w-4xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
-          animate={isBioInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
           <div className="text-6xl md:text-7xl font-light text-black mb-4" style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}>
-            <TypingText key="main-name" text="Hi, my name is Mario Onoh" delay={0} isInView={isBioInView} />
+            <TypingText key="main-name" text="Hi, my name is Mario Onoh" delay={0} isInView={true} />
           </div>
           
           <div className="text-sm md:text-base text-gray-400 mb-8 italic" style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}>
-            <TypingText key="main-aka" text="(aka Rio, aka Skrio)" delay={0.1} isInView={isBioInView} />
+            <TypingText key="main-aka" text="(aka Rio, aka Skrio)" delay={0.1} isInView={true} />
           </div>
           
               <div className="text-xl md:text-2xl font-light text-gray-800 mb-12" style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}>
-                <TypingText key="main-work" text="I work in music, tech, film, and beyond." delay={0.2} isInView={isBioInView} />
+                <TypingText key="main-work" text="I work in music, tech, film, and beyond." delay={0.2} isInView={true} />
               </div>
 
           <div className="text-lg text-gray-800 max-w-3xl mx-auto leading-relaxed text-center" style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}>
-            <TypingText 
-              key="main-description"
-              text="I bring ideas to life across multiple creative disciplines, blending technology with artistry to create experiences that resonate and inspire." 
-              delay={0.4} 
-              isInView={isBioInView} 
-            />
+              <TypingText 
+                key="main-description"
+                text="I bring ideas to life across multiple creative disciplines, blending technology with artistry to create experiences that resonate and inspire." 
+                delay={0.4} 
+                isInView={true} 
+              />
           </div>
 
               {/* Scroll Indicator */}
               <motion.div
                 initial={{ opacity: 0 }}
-                animate={isBioInView ? { opacity: 1 } : { opacity: 0 }}
+                animate={{ opacity: 1 }}
                 transition={{ duration: 0.8, delay: 1.5 }}
                 className="mt-16 flex flex-col items-center"
               >
@@ -358,7 +385,7 @@ export default function Home() {
 
           <motion.h2
             initial={{ opacity: 0, x: 50 }}
-            animate={isAboutInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
             className="absolute top-8 right-8 text-3xl md:text-4xl font-bold text-black z-10"
           >
@@ -368,7 +395,7 @@ export default function Home() {
           {/* GitHub Link - Top Left */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
-            animate={isAboutInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
             className="absolute top-8 left-8 z-10"
           >
@@ -385,7 +412,7 @@ export default function Home() {
           {/* Education Link - Top Left */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
-            animate={isAboutInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
             className="absolute top-16 left-8 z-10"
           >
@@ -402,7 +429,7 @@ export default function Home() {
           {/* Instagram Link - Bottom Center */}
           <motion.div
             initial={{ opacity: 0, y: 50 }}
-            animate={isAboutInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
             className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10"
           >
@@ -429,7 +456,7 @@ export default function Home() {
             {/* Cash App Link */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
-              animate={isAboutInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
             >
               <a 
@@ -448,7 +475,7 @@ export default function Home() {
             {/* Columbia Records Link */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
-              animate={isAboutInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.5 }}
             >
               <a 
@@ -467,7 +494,7 @@ export default function Home() {
             {/* Loewe Link */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
-              animate={isAboutInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.7 }}
             >
               <a 
@@ -486,7 +513,7 @@ export default function Home() {
             {/* PWRS Link */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
-              animate={isAboutInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.9 }}
             >
               <a 
@@ -505,7 +532,7 @@ export default function Home() {
             {/* Samsung Link */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
-              animate={isAboutInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1.1 }}
             >
               <a 
@@ -524,7 +551,7 @@ export default function Home() {
             {/* SZA-CTRL Link */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
-              animate={isAboutInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1.3 }}
             >
               <a 
@@ -543,7 +570,7 @@ export default function Home() {
             {/* VFILES Link */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
-              animate={isAboutInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1.5 }}
             >
               <a 
@@ -562,7 +589,7 @@ export default function Home() {
             {/* Young Thug Hot Link */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
-              animate={isAboutInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1.7 }}
             >
               <a 
@@ -581,7 +608,7 @@ export default function Home() {
             {/* We Still Don't Trust You Link */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
-              animate={isAboutInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1.9 }}
             >
               <a 
@@ -598,6 +625,6 @@ export default function Home() {
             </motion.div>
           </div>
     </section>
-    </div>
+      </div>
   );
 }
