@@ -7,7 +7,6 @@ import TypingText from '@/components/TypingText';
 import PasswordProtection from '@/components/PasswordProtection';
 
 export default function Home() {
-  const bioRef = useRef(null);
   const aboutRef = useRef(null);
   const isAboutInView = useInView(aboutRef, { once: true, margin: "-100px" });
   const [isClient, setIsClient] = useState(false);
@@ -45,7 +44,7 @@ export default function Home() {
 
   return (
     <div>
-    <section ref={bioRef} className="min-h-screen bg-white relative overflow-hidden flex items-center justify-center px-4">
+    <section className="min-h-screen bg-white relative overflow-hidden flex items-center justify-center px-4">
       {/* Clean Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-gray-50 to-white" />
 
