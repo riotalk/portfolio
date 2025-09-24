@@ -11,6 +11,7 @@ export default function Home() {
   const isAboutInView = useInView(aboutRef, { once: true, margin: "-100px" });
   const [isClient, setIsClient] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isSkillsOpen, setIsSkillsOpen] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
@@ -45,9 +46,68 @@ export default function Home() {
   return (
     <div>
     <section className="min-h-screen bg-white relative overflow-hidden flex items-center justify-center px-4">
-      {/* Clean Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-gray-50 to-white" />
+      {/* Outer Space Background */}
+      <div className="absolute inset-0 bg-black" />
+      
+      {/* Stars */}
+      {isClient && (
+        <div className="absolute inset-0">
+          {Array.from({ length: 200 }).map((_, i) => (
+            <div
+              key={`star-${i}`}
+              className="absolute bg-white rounded-full"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                width: `${1 + Math.random() * 3}px`,
+                height: `${1 + Math.random() * 3}px`,
+                opacity: Math.random() * 0.8 + 0.2
+              }}
+            />
+          ))}
+        </div>
+      )}
 
+
+          {/* Shooting Star */}
+          <motion.div
+            className="absolute w-4 h-4 bg-white rounded-full shadow-2xl z-20"
+            style={{
+              left: '-40px',
+              top: '15%',
+            }}
+            animate={{
+              x: ['0px', '120vw'],
+              y: ['0px', '70vh'],
+              opacity: [0, 1, 1, 0],
+            }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+              repeatDelay: 2,
+              ease: "easeInOut"
+            }}
+          />
+          
+          {/* Shooting Star Trail */}
+          <motion.div
+            className="absolute w-32 h-2 bg-gradient-to-r from-white via-yellow-200 to-transparent rounded-full z-20"
+            style={{
+              left: '-40px',
+              top: '15%',
+            }}
+            animate={{
+              x: ['0px', '120vw'],
+              y: ['0px', '70vh'],
+              opacity: [0, 0.9, 0.9, 0],
+            }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+              repeatDelay: 2,
+              ease: "easeInOut"
+            }}
+          />
 
           {/* Rotating Orbit */}
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 z-5">
@@ -104,19 +164,19 @@ export default function Home() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <div className="text-6xl md:text-7xl font-light text-black mb-4" style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}>
+          <div className="text-4xl md:text-5xl font-light text-white mb-4" style={{ fontFamily: 'Orbitron, system-ui, -apple-system, sans-serif' }}>
             <TypingText key="main-name" text="Hi, my name is Mario Onoh" delay={0} isInView={true} />
           </div>
           
-          <div className="text-sm md:text-base text-gray-400 mb-8 italic" style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}>
+          <div className="text-sm md:text-base text-gray-300 mb-8 italic" style={{ fontFamily: 'Orbitron, system-ui, -apple-system, sans-serif' }}>
             <TypingText key="main-aka" text="(aka Rio, aka Skrio)" delay={0.1} isInView={true} />
           </div>
           
-              <div className="text-xl md:text-2xl font-light text-gray-800 mb-12" style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}>
+              <div className="text-xl md:text-2xl font-light text-white mb-12" style={{ fontFamily: 'Orbitron, system-ui, -apple-system, sans-serif' }}>
                 <TypingText key="main-work" text="I work in music, tech, film, and beyond." delay={0.2} isInView={true} />
               </div>
 
-          <div className="text-lg text-gray-800 max-w-3xl mx-auto leading-relaxed text-center" style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}>
+          <div className="text-lg text-yellow-400 max-w-3xl mx-auto leading-relaxed text-center" style={{ fontFamily: 'Orbitron, system-ui, -apple-system, sans-serif' }}>
               <TypingText 
                 key="main-description"
                 text="I bring ideas to life across multiple creative disciplines, blending technology with artistry to create experiences that resonate and inspire." 
@@ -415,6 +475,56 @@ export default function Home() {
             </a>
           </motion.div>
 
+          {/* Skills Dropdown - Top Left */}
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.7 }}
+            className="absolute top-24 left-8 z-10"
+          >
+            <div className="relative">
+              <button
+                onClick={() => setIsSkillsOpen(!isSkillsOpen)}
+                className="text-black text-xl font-bold hover:underline transition-all duration-300 hover:text-gray-700 flex items-center"
+              >
+                Skills
+                <motion.span
+                  animate={{ rotate: isSkillsOpen ? 180 : 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="ml-2"
+                >
+                  ▼
+                </motion.span>
+              </button>
+              
+              {isSkillsOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.3 }}
+                  className="absolute top-8 left-0 bg-white border border-gray-200 rounded-lg shadow-lg p-4 min-w-64"
+                >
+                  <div className="space-y-2">
+                    <div className="text-black font-bold">
+                      Full-Stack Developer
+                      <span className="text-gray-500 font-normal"> React, NodeJS, HTML, CSS, Python, etc.</span>
+                    </div>
+                    <div className="text-gray-600 text-sm font-medium mt-3">Proficient</div>
+                    <div className="text-black font-bold">
+                      Music Production
+                      <span className="text-gray-500 font-normal"> FL Studio</span>
+                    </div>
+                    <div className="text-black font-bold mt-3">Languages</div>
+                    <div className="text-gray-500 text-base">
+                      English, Spanish, Igbo
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+            </div>
+          </motion.div>
+
           {/* Instagram Link - Bottom Center */}
           <motion.div
             initial={{ opacity: 0, y: 50 }}
@@ -556,6 +666,25 @@ export default function Home() {
               </div>
             </motion.div>
 
+            {/* TEKNO - TMTB Link */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 1.4 }}
+            >
+              <a 
+                href="https://open.spotify.com/album/3F886JEtegyU2CGjbvbv4I?si=rIsT8t7hSqyT5YvCAUostQ" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-black text-xl font-medium hover:underline transition-all duration-300 hover:text-gray-700"
+              >
+                Tekno -TMTB
+              </a>
+              <div className="text-gray-500 text-base mt-2">
+                Executive Produced
+              </div>
+            </motion.div>
+
             {/* VFILES Link */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -612,8 +741,28 @@ export default function Home() {
                 Tour Management
               </div>
             </motion.div>
+
+            {/* Music Management Tab */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 2.1 }}
+            >
+              <a 
+                href="https://open.spotify.com/playlist/5qRGk47BAPfsx0rc2eQS0q?si=d8cbecf2f8024507" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-black text-xl font-medium hover:underline transition-all duration-300 hover:text-gray-700"
+              >
+                Music Management
+              </a>
+              <div className="text-gray-500 text-base mt-2">
+                songs I contributed towards
+              </div>
+            </motion.div>
           </div>
     </section>
+
       </div>
   );
 }
